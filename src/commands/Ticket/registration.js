@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { SlashCommandBuilder, PermissionFlagsBits, ChannelType, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import { createEmbed } from '../../utils/embeds.js';
 
@@ -17,16 +18,22 @@ export default {
     async execute(interaction) {
 
         const channel = interaction.options.getChannel("channel");
+const rulesData = JSON.parse(
+    fs.readFileSync('./src/commands/Ticket/registrationRules.json', 'utf8')
+);
 
+const rulesText = rulesData.rules
+    .map(rule => `• ${rule}`)
+    .join('\n');
         const embed = createEmbed({
             title: "🏆 EFOOTBALL TOURNAMENT REGISTRATION",
             description:
+description:
 `Click the button below to register.
 
-Requirements:
-• Follow Instagram
-• Subscribe YouTube
-• Follow Partner Page
+📋 Requirements:
+
+${rulesText}
 
 After clicking Register, you will be asked for your details.`
         });
