@@ -1,12 +1,16 @@
+import { db } from "../../utils/database.js";
+
 export default {
-  name: "approve_registration",
+name: "approve_registration",
 
-  async execute(interaction) {
+async execute(interaction) {
 
-    await interaction.reply({
-      content: "✅ Registration Approved",
-      ephemeral: true
-    });
+```
+await interaction.reply({
+  content: "✅ Registration Approved",
+  ephemeral: true
+});
+```
 
-  }
+}
 };
