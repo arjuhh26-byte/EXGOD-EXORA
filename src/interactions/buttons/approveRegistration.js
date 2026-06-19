@@ -45,6 +45,13 @@ await db.set(
   `registration:${interaction.channel.id}`,
   registration
 );
+const member = await interaction.guild.members.fetch(
+  registration.discordId
+);
+
+await member.roles.add(
+  process.env.EFOOTBALL_PLAYER_ROLE_ID
+);
    const user = await interaction.client.users.fetch(
   registration.discordId
 );
