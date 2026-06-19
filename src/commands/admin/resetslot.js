@@ -1,11 +1,17 @@
-import { PermissionFlagsBits } from "discord.js";
+import {
+  SlashCommandBuilder,
+  PermissionFlagsBits
+} from "discord.js";
+
 import { db } from "../../utils/database.js";
 
 export default {
-  name: "resetslot",
-  description: "Reset eFootball slot counter",
-  defaultMemberPermissions:
-    PermissionFlagsBits.Administrator,
+  data: new SlashCommandBuilder()
+    .setName("resetslot")
+    .setDescription("Reset eFootball slot counter")
+    .setDefaultMemberPermissions(
+      PermissionFlagsBits.Administrator
+    ),
 
   async execute(interaction) {
 
