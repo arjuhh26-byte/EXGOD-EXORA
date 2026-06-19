@@ -26,7 +26,6 @@ const row = new ActionRowBuilder()
 modal.addComponents(row);
 
 await interaction.showModal(modal);
-```
 
 }
 };
