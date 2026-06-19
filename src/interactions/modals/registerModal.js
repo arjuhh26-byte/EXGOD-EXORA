@@ -80,3 +80,15 @@ await registrationChannel.send({
 🟡 Status: Pending Review`,
   components: [row]
 });
+
+await interaction.reply({
+  content: `✅ Registration Submitted
+
+Your review channel has been created:
+
+${registrationChannel}`,
+  ephemeral: true
+});
+
+  }
+};
