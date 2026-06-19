@@ -36,6 +36,20 @@ export default {
     const winnerSlot =
       interaction.options.getString("slot");
 
+      const registrations =
+  await db.list("registration:");
+
+let winnerData = null;
+
+for (const key of registrations) {
+  const data = await db.get(key);
+
+  if (data?.slot === winnerSlot) {
+    winnerData = data;
+    break;
+  }
+}
+
     const matchData = await db.get(
       `match:${matchNumber}`
     );
@@ -47,13 +61,13 @@ export default {
       });
     }
 
-    await db.set(
-      `match:${matchNumber}`,
-      {
-        ...matchData,
-        winner: winnerSlot
-      }
-    );
+  await db.set(
+  `match:${matchNumber}`,
+  {
+    ...matchData,
+    winner: winnerData
+  }
+);
 
 const fixtureChannel =
   await interaction.client.channels.fetch(
