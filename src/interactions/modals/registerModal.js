@@ -1,6 +1,9 @@
 import {
   ChannelType,
-  PermissionFlagsBits
+  PermissionFlagsBits,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle
 } from "discord.js";
 
 export default {
@@ -48,10 +51,20 @@ export default {
           }
         ]
       });
+const row = new ActionRowBuilder()
+  .addComponents(
+    new ButtonBuilder()
+      .setCustomId("approve_registration")
+      .setLabel("Approve")
+      .setStyle(ButtonStyle.Success),
 
-    await registrationChannel.send({
-      content:
-`📸 **Upload Required**
+    new ButtonBuilder()
+      .setCustomId("reject_registration")
+      .setLabel("Reject")
+      .setStyle(ButtonStyle.Danger)
+  );
+await registrationChannel.send({
+  content: `📸 **Upload Required**
 
 • YouTube Subscription Screenshot
 • EXGOD Instagram Follow Screenshot
@@ -64,17 +77,6 @@ export default {
 
 👤 Discord: ${interaction.user}
 
-🟡 Status: Pending Review`
-    });
-
-    await interaction.reply({
-      content:
-`✅ Registration Submitted
-
-Your review channel has been created:
-
-${registrationChannel}`,
-      ephemeral: true
-    });
-  }
-};
+🟡 Status: Pending Review`,
+  components: [row]
+});
