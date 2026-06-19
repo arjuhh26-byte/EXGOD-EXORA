@@ -6,6 +6,7 @@ import {
   ButtonStyle
 } from "discord.js";
 
+import { db } from "../../utils/database.js";
 export default {
   name: "register_modal",
 
@@ -63,8 +64,20 @@ const row = new ActionRowBuilder()
       .setLabel("Reject")
       .setStyle(ButtonStyle.Danger)
   );
+
+await db.set(
+  `registration:${registrationChannel.id}`,
+  {
+    ingameName,
+    phoneNumber,
+    discordId: interaction.user.id,
+    status: "pending",
+    slot: null
+  }
+);
+
 await registrationChannel.send({
-  content: `📸 **Upload Required**
+  content: `:camera_with_flash: **Upload Required**
 
 • YouTube Subscription Screenshot
 • EXGOD Instagram Follow Screenshot
@@ -72,17 +85,17 @@ await registrationChannel.send({
 
 ━━━━━━━━━━━━━━
 
-🎮 Ingame Name: ${ingameName}
-📱 Phone Number: ${phoneNumber}
+:video_game: Ingame Name: ${ingameName}
+:mobile_phone: Phone Number: ${phoneNumber}
 
-👤 Discord: ${interaction.user}
+:bust_in_silhouette: Discord: ${interaction.user}
 
-🟡 Status: Pending Review`,
+:yellow_circle: Status: Pending Review`,
   components: [row]
 });
 
 await interaction.reply({
-  content: `✅ Registration Submitted
+  content: `:white_check_mark: Registration Submitted
 
 Your review channel has been created:
 
