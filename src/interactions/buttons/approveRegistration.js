@@ -15,7 +15,8 @@ export default {
         ephemeral: true
       });
     }
-    if (registration.status === "approved") {
+
+if (registration.status === "approved") {
   return interaction.reply({
     content: `⚠️ This registration is already approved.
 
@@ -23,6 +24,14 @@ export default {
     ephemeral: true
   });
 }
+
+if (registration.status === "rejected") {
+  return interaction.reply({
+    content: "⚠️ This registration is already rejected.",
+    ephemeral: true
+  });
+}
+
 const slotCounter = await db.increment(
   "efootball:slot_counter"
 );
@@ -51,6 +60,13 @@ await interaction.reply({
 🎟 Slot Number: ${formattedSlot}`,
   ephemeral: true
 });
+setTimeout(async () => {
+  try {
+    await interaction.channel.delete();
+  } catch (err) {
+    console.error(err);
+  }
+}, 10000);
 
   }
 };

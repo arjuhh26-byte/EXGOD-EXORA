@@ -40,19 +40,27 @@ if (registration.status === "approved") {
       registration
     );
 
-    const user =
-      await interaction.client.users.fetch(
-        registration.discordId
-      );
+   const user =
+  await interaction.client.users.fetch(
+    registration.discordId
+  );
 
-    await user.send(
-      `❌ Registration Rejected\n\nReason:\n${reason}`
-    );
+await user.send(
+  `❌ Registration Rejected\n\nReason:\n${reason}`
+);
 
-    await interaction.reply({
-      content: `❌ Registration Rejected\n\nReason:\n${reason}`,
-      ephemeral: true
-    });
+await interaction.reply({
+  content: `❌ Registration Rejected\n\nReason:\n${reason}\n\n🗑️ Channel will be deleted in 10 seconds.`,
+  ephemeral: true
+});
+
+setTimeout(async () => {
+  try {
+    await interaction.channel.delete();
+  } catch (err) {
+    console.error(err);
+  }
+}, 10000);
 
   }
 };
