@@ -83,16 +83,16 @@ Status: Pending`
 });
 
 await db.set(
-`match:${fixture.match}`,
-{
-match: fixture.match,
-player1: player1.slot,
-player2: player2?.slot || null,
-winner: null,
-messageId: matchMessage.id
-}
+  `match:${fixture.match}`,
+  {
+    round: 1,
+    match: fixture.match,
+    player1: player1.slot,
+    player2: player2?.slot || null,
+    winner: null,
+    messageId: matchMessage.id
+  }
 );
-}
 
 await interaction.reply({
   content:
