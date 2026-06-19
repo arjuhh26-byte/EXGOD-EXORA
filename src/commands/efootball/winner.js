@@ -55,6 +55,32 @@ export default {
       }
     );
 
+const fixtureChannel =
+  await interaction.client.channels.fetch(
+    process.env.FIXTURE_CHANNEL_ID
+  );
+
+const matchMessage =
+  await fixtureChannel.messages.fetch(
+    matchData.messageId
+  );
+
+await matchMessage.edit({
+  content:
+`🏆 MATCH ${matchNumber}
+
+Player 1
+🎟 ${matchData.player1}
+
+VS
+
+Player 2
+🎟 ${matchData.player2 || "BYE"}
+
+✅ WINNER
+🎟 ${winnerSlot}`
+});
+
     await interaction.reply({
       content:
         `✅ Winner saved for Match ${matchNumber}\n🎟 Winner: ${winnerSlot}`,
