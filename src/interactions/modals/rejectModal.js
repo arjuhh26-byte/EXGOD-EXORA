@@ -5,17 +5,6 @@ export default {
 
   async execute(interaction) {
 
-if (
-  !interaction.member.permissions.has(
-    PermissionFlagsBits.Administrator
-  )
-) {
-  return interaction.reply({
-    content: "❌ You don't have permission to use this button.",
-    ephemeral: true
-  });
-}
-
     const reason =
       interaction.fields.getTextInputValue(
         "reject_reason"
