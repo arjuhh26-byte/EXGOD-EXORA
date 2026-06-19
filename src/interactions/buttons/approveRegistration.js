@@ -94,6 +94,21 @@ await user.send(
 
 🎟 Slot Number: ${formattedSlot}`
 );
+const logChannel =
+  await interaction.client.channels.fetch(
+    process.env.REGISTRATION_LOG_CHANNEL_ID
+  );
+
+await logChannel.send(
+  `✅ **REGISTRATION APPROVED**
+
+👤 User: <@${registration.discordId}>
+🎮 Ingame Name: ${registration.ingameName}
+📱 Phone: ${registration.phoneNumber}
+🎟 Slot: ${formattedSlot}
+
+🛡 Approved By: ${interaction.user}`
+);
 await interaction.reply({
   content: `✅ Registration Approved
 

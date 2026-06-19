@@ -48,7 +48,23 @@ if (registration.status === "approved") {
 await user.send(
   `❌ Registration Rejected\n\nReason:\n${reason}`
 );
+const logChannel =
+  await interaction.client.channels.fetch(
+    process.env.REGISTRATION_LOG_CHANNEL_ID
+  );
 
+await logChannel.send(
+  `❌ **REGISTRATION REJECTED**
+
+👤 User: <@${registration.discordId}>
+🎮 Ingame Name: ${registration.ingameName}
+📱 Phone: ${registration.phoneNumber}
+
+📝 Reason:
+${reason}
+
+🛡 Rejected By: ${interaction.user}`
+);
 await interaction.reply({
   content: `❌ Registration Rejected\n\nReason:\n${reason}\n\n🗑️ Channel will be deleted in 10 seconds.`,
   ephemeral: true
