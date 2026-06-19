@@ -5,10 +5,23 @@ import {
   ActionRowBuilder
 } from "discord.js";
 
+import { db } from "../../utils/database.js";
+
 export default {
   name: "register_now",
 
   async execute(interaction) {
+    const isOpen = await db.get(
+  "efootball:registration_open"
+);
+
+if (isOpen === false) {
+  return interaction.reply({
+    content:
+      "❌ Registration is currently closed.",
+    ephemeral: true
+  });
+}
     const modal = new ModalBuilder()
       .setCustomId("register_modal")
       .setTitle("EFOOTBALL Registration");
