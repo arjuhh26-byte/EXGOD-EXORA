@@ -3,22 +3,20 @@ export default {
 
   async execute(interaction) {
 
-    const teamName =
-      interaction.fields.getTextInputValue("team_name");
+    const ingameName =
+      interaction.fields.getTextInputValue("ingame_name");
 
-    const captainName =
-      interaction.fields.getTextInputValue("captain_name");
-
-    const captainId =
-      interaction.fields.getTextInputValue("captain_id");
+    const phoneNumber =
+      interaction.fields.getTextInputValue("phone_number");
 
     await interaction.reply({
       content:
 `✅ Registration Submitted
 
-Team: ${teamName}
-Captain: ${captainName}
-Discord ID: ${captainId}`,
+Ingame Name: ${ingameName}
+Phone Number: ${phoneNumber}
+
+Please wait for admin verification.`,
       ephemeral: true
     });
   }

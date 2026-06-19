@@ -13,28 +13,21 @@ export default {
       .setCustomId("register_modal")
       .setTitle("EFOOTBALL Registration");
 
-    const teamName = new TextInputBuilder()
-      .setCustomId("team_name")
-      .setLabel("Team Name")
+    const ingameName = new TextInputBuilder()
+      .setCustomId("ingame_name")
+      .setLabel("Ingame Name")
       .setStyle(TextInputStyle.Short)
       .setRequired(true);
 
-    const captainName = new TextInputBuilder()
-      .setCustomId("captain_name")
-      .setLabel("Captain Name")
-      .setStyle(TextInputStyle.Short)
-      .setRequired(true);
-
-    const captainId = new TextInputBuilder()
-      .setCustomId("captain_id")
-      .setLabel("Captain Discord ID")
+    const phoneNumber = new TextInputBuilder()
+      .setCustomId("phone_number")
+      .setLabel("Phone Number")
       .setStyle(TextInputStyle.Short)
       .setRequired(true);
 
     modal.addComponents(
-      new ActionRowBuilder().addComponents(teamName),
-      new ActionRowBuilder().addComponents(captainName),
-      new ActionRowBuilder().addComponents(captainId)
+      new ActionRowBuilder().addComponents(ingameName),
+      new ActionRowBuilder().addComponents(phoneNumber)
     );
 
     await interaction.showModal(modal);
