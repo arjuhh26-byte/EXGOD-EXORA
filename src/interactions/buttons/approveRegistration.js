@@ -15,7 +15,19 @@ export default {
         ephemeral: true
       });
     }
+const slotCounter = await db.increment(
+  "efootball:slot_counter"
+);
 
+const formattedSlot =
+  `#${String(slotCounter).padStart(3, "0")}`;
+  registration.status = "approved";
+registration.slot = formattedSlot;
+
+await db.set(
+  `registration:${interaction.channel.id}`,
+  registration
+);
     await interaction.reply({
       content: "✅ Registration Approved",
       ephemeral: true
