@@ -15,6 +15,14 @@ export default {
         ephemeral: true
       });
     }
+    if (registration.status === "approved") {
+  return interaction.reply({
+    content: `⚠️ This registration is already approved.
+
+🎟 Slot Number: ${registration.slot}`,
+    ephemeral: true
+  });
+}
 const slotCounter = await db.increment(
   "efootball:slot_counter"
 );
