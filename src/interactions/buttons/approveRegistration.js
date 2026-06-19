@@ -55,6 +55,10 @@ await member.roles.add(
    const user = await interaction.client.users.fetch(
   registration.discordId
 );
+console.log(
+  "ROLE ID:",
+  process.env.EFOOTBALL_PLAYER_ROLE_ID
+);
 
 await user.send(
   `✅ Registration Approved
