@@ -48,6 +48,41 @@ player2: winners[i + 1] || null
 
 }
 
+const fixtureChannel =
+await interaction.client.channels.fetch(
+process.env.FIXTURE_CHANNEL_ID
+);
+
+for (const fixture of nextRoundFixtures) {
+
+const player1 = fixture.player1;
+const player2 = fixture.player2;
+
+await fixtureChannel.send({
+content:
+`🏆 ROUND 2 - MATCH ${fixture.match}
+
+Player 1
+🎟 ${player1.slot}
+🎮 ${player1.ingameName}
+📱 ${player1.phoneNumber}
+
+VS
+
+${
+player2
+? `Player 2
+🎟 ${player2.slot}
+🎮 ${player2.ingameName}
+📱 ${player2.phoneNumber}`
+: "🎉 BYE"
+}
+
+Status: Pending`
+});
+
+}
+
 await interaction.reply({
 content:
 `✅ Generated ${nextRoundFixtures.length} next round matches.`,
