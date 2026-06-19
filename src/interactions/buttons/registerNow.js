@@ -22,6 +22,19 @@ if (isOpen === false) {
     ephemeral: true
   });
 }
+const maxSlots =
+  (await db.get("efootball:max_slots")) || 512;
+
+const currentSlots =
+  (await db.get("efootball:slot_counter")) || 0;
+
+if (currentSlots >= maxSlots) {
+  return interaction.reply({
+    content:
+      `❌ Tournament slots are full.\nMaximum slots: ${maxSlots}`,
+    ephemeral: true
+  });
+}
     const modal = new ModalBuilder()
       .setCustomId("register_modal")
       .setTitle("EFOOTBALL Registration");
