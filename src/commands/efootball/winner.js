@@ -79,7 +79,7 @@ Player 2
 
 ✅ WINNER
 🎟 ${winnerSlot}`
-});
+}); 
 
     await interaction.reply({
       content:
