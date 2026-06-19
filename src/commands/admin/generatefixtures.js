@@ -34,32 +34,33 @@ approvedPlayers.sort(
 let fixtures = [];
 
 for (
-  let i = 0;
-  i < approvedPlayers.length;
-  i += 2
+let i = 0;
+i < approvedPlayers.length;
+i += 2
 ) {
-  const player1 = approvedPlayers[i];
-  const player2 = approvedPlayers[i + 1];
+const player1 = approvedPlayers[i];
+const player2 = approvedPlayers[i + 1];
 
-  fixtures.push({
-    match: fixtures.length + 1,
-    player1,
-    player2
-  });
+fixtures.push({
+match: fixtures.length + 1,
+player1,
+player2
+});
 }
 
 const fixtureChannel =
-  await interaction.client.channels.fetch(
-    process.env.FIXTURE_CHANNEL_ID
-  );
+await interaction.client.channels.fetch(
+process.env.FIXTURE_CHANNEL_ID
+);
 
-  for (const fixture of fixtures) {
+for (const fixture of fixtures) {
 
-  const player1 = fixture.player1;
-  const player2 = fixture.player2;
+const player1 = fixture.player1;
+const player2 = fixture.player2;
 
-  await fixtureChannel.send({
-    content:
+const matchMessage =
+await fixtureChannel.send({
+content:
 `🏆 MATCH ${fixture.match}
 
 Player 1
@@ -79,8 +80,18 @@ player2
 }
 
 Status: Pending`
-  });
+});
 
+await db.set(
+`match:${fixture.match}`,
+{
+match: fixture.match,
+player1: player1.slot,
+player2: player2?.slot || null,
+winner: null,
+messageId: matchMessage.id
+}
+);
 }
 
 await interaction.reply({
