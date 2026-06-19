@@ -28,10 +28,21 @@ await db.set(
   `registration:${interaction.channel.id}`,
   registration
 );
-    await interaction.reply({
-      content: "✅ Registration Approved",
-      ephemeral: true
-    });
+   const user = await interaction.client.users.fetch(
+  registration.discordId
+);
+
+await user.send(
+  `✅ Registration Approved
+
+🎟 Slot Number: ${formattedSlot}`
+);
+await interaction.reply({
+  content: `✅ Registration Approved
+
+🎟 Slot Number: ${formattedSlot}`,
+  ephemeral: true
+});
 
   }
 };
