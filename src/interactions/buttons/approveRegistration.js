@@ -5,6 +5,13 @@ export default {
 
   async execute(interaction) {
 
+if (!interaction.member.permissions.has("Administrator")) {
+  return interaction.reply({
+    content: "❌ You don't have permission to use this button.",
+    ephemeral: true
+  });
+}
+
     const registration = await db.get(
       `registration:${interaction.channel.id}`
     );
