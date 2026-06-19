@@ -31,11 +31,29 @@ for (const key of matchKeys) {
 
 }
 
-await interaction.reply({
-  content:
-    `Found ${winners.length} winners.`,
-  ephemeral: true
+let nextRoundFixtures = [];
+
+for (
+let i = 0;
+i < winners.length;
+i += 2
+) {
+
+nextRoundFixtures.push({
+match:
+nextRoundFixtures.length + 1,
+player1: winners[i],
+player2: winners[i + 1] || null
 });
+
+}
+
+await interaction.reply({
+content:
+`✅ Generated ${nextRoundFixtures.length} next round matches.`,
+ephemeral: true
+});
+
 
   }
 };
