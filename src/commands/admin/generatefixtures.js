@@ -3,6 +3,8 @@ import {
   PermissionFlagsBits
 } from "discord.js";
 
+import { db } from "../../utils/database.js";
+
 export default {
   data: new SlashCommandBuilder()
     .setName("generatefixtures")
@@ -13,11 +15,14 @@ export default {
 
   async execute(interaction) {
 
-    await interaction.reply({
-      content:
-        "🏆 Fixture generation system is starting...",
-      ephemeral: true
-    });
+  const registrations =
+  await db.list("registration:");
+
+await interaction.reply({
+  content:
+    `Found ${registrations.length} registrations.`,
+  ephemeral: true
+});
 
   }
 };
