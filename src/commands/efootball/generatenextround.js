@@ -18,11 +18,24 @@ export default {
     const matchKeys =
       await db.list("match:");
 
-    await interaction.reply({
-      content:
-        `Found ${matchKeys.length} matches.`,
-      ephemeral: true
-    });
+   let winners = [];
+
+for (const key of matchKeys) {
+
+  const matchData =
+    await db.get(key);
+
+  if (matchData?.winner) {
+    winners.push(matchData.winner);
+  }
+
+}
+
+await interaction.reply({
+  content:
+    `Found ${winners.length} winners.`,
+  ephemeral: true
+});
 
   }
 };
