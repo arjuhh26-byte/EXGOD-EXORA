@@ -17,6 +17,23 @@ export default {
 
     const phoneNumber =
       interaction.fields.getTextInputValue("phone_number");
+      const registrations = await db.list("registration:");
+
+for (const key of registrations) {
+  const data = await db.get(key);
+
+  if (
+    data?.discordId === interaction.user.id &&
+    data?.status === "approved"
+  ) {
+    return interaction.reply({
+      content: `❌ You are already registered.
+
+🎟 Slot Number: ${data.slot}`,
+      ephemeral: true
+    });
+  }
+}
 
     const channelName = `registration-${ingameName}`
       .toLowerCase()
