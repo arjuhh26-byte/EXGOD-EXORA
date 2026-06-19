@@ -28,7 +28,18 @@ export default {
       "efootball:slot_counter",
       0
     );
+const slotChannel = await interaction.client.channels.fetch(
+  process.env.SLOT_LIST_CHANNEL_ID
+);
 
+const slotMessage = await slotChannel.messages.fetch(
+  process.env.SLOT_LIST_MESSAGE_ID
+);
+
+await slotMessage.edit({
+  content:
+    "🎟 **TOURNAMENT SLOT LIST**\n\nNo registrations yet."
+});
     await interaction.reply({
       content:
         "✅ Tournament data reset successfully.\n\n• All registrations removed\n• Slot counter reset",
