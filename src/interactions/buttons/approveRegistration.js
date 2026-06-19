@@ -48,6 +48,35 @@ await db.set(
 const member = await interaction.guild.members.fetch(
   registration.discordId
 );
+const slotChannel = await interaction.client.channels.fetch(
+  process.env.SLOT_LIST_CHANNEL_ID
+);
+
+const slotMessage = await slotChannel.messages.fetch(
+  process.env.SLOT_LIST_MESSAGE_ID
+);
+
+const registrations = await db.list("registration:");
+
+let slots = [];
+
+for (const key of registrations) {
+  const data = await db.get(key);
+
+  if (data?.status === "approved") {
+    slots.push(
+      `${data.slot} - ${data.ingameName}`
+    );
+  }
+}
+
+await slotMessage.edit({
+  content:
+    `🎟 **TOURNAMENT SLOT LIST**\n\n` +
+    (slots.length
+      ? slots.join("\n")
+      : "No registrations yet.")
+});
 
 await member.roles.add(
   process.env.EFOOTBALL_PLAYER_ROLE_ID
