@@ -10,7 +10,6 @@ name: "reject_registration",
 
 async execute(interaction) {
 
-```
 const modal = new ModalBuilder()
   .setCustomId("reject_modal")
   .setTitle("Reject Registration");
