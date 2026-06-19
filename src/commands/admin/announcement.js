@@ -1,23 +1,56 @@
-async execute(interaction) {
+import {
+  SlashCommandBuilder,
+  PermissionFlagsBits,
+  ChannelType
+} from "discord.js";
 
-  const channel =
-    interaction.options.getChannel("channel");
+export default {
+  data: new SlashCommandBuilder()
+    .setName("announcement")
+    .setDescription("Send an announcement")
+    .addChannelOption(option =>
+      option
+        .setName("channel")
+        .setDescription("Channel to send announcement")
+        .addChannelTypes(ChannelType.GuildText)
+        .setRequired(true)
+    )
+    .addStringOption(option =>
+      option
+        .setName("title")
+        .setDescription("Announcement title")
+        .setRequired(true)
+    )
+    .addStringOption(option =>
+      option
+        .setName("message")
+        .setDescription("Announcement content")
+        .setRequired(true)
+    )
+    .setDefaultMemberPermissions(
+      PermissionFlagsBits.Administrator
+    ),
 
-  const title =
-    interaction.options.getString("title");
+  async execute(interaction) {
 
-  const message =
-    interaction.options.getString("message");
+    const channel =
+      interaction.options.getChannel("channel");
 
-  const sentMessage = await channel.send({
-    content:
-      `📢 **${title}**\n\n${message}`
-  });
+    const title =
+      interaction.options.getString("title");
 
-  await interaction.reply({
-    content:
-      `✅ Announcement sent to ${channel}\n\nMessage ID: ${sentMessage.id}`,
-    ephemeral: true
-  });
+    const message =
+      interaction.options.getString("message");
 
-}
+    const sentMessage = await channel.send({
+      content: `📢 **${title}**\n\n${message}`
+    });
+
+    await interaction.reply({
+      content:
+        `✅ Announcement sent to ${channel}\n\nMessage ID: ${sentMessage.id}`,
+      ephemeral: true
+    });
+
+  }
+};
