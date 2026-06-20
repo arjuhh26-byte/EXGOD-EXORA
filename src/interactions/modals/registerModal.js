@@ -94,11 +94,27 @@ await db.set(
 );
 
 await registrationChannel.send({
-  content: `:camera_with_flash: **Upload Required**
+  content: `:📸 *Registration Verification Process*
 
-• YouTube Subscription Screenshot
-• EXGOD Instagram Follow Screenshot
-• Partner Follow Screenshot
+To ensure a fair and secure registration process, all participants are required to complete the following verification steps and submit valid screenshots as proof.
+
+1️⃣ *Follow Our Instagram Partner Page*
+
+Follow the Instagram page below and upload a screenshot showing that you have successfully followed the account.
+
+https://www.instagram.com/simplebrandpromotors/
+
+2️⃣ *Subscribe to Our YouTube Channel*
+
+Subscribe to the YouTube channel below and upload a screenshot confirming your subscription.
+
+https://youtube.com/@gamerblack-yt
+
+3️⃣ *Join Our Official WhatsApp Group*
+
+Join the WhatsApp group through the link below and upload a screenshot showing that you have joined successfully.
+
+https://chat.whatsapp.com/KchuW8Qn925EVnLHkw7h1P
 
 ━━━━━━━━━━━━━━
 
