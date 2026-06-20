@@ -98,6 +98,11 @@ Status: Pending`
 
 }
 
+await db.set(
+  "current_round",
+  1
+);
+
 await interaction.reply({
   content:
     `✅ Generated ${fixtures.length} matches.`,
