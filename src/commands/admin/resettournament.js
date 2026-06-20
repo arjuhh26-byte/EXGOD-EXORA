@@ -45,7 +45,10 @@ const slotChannel = await interaction.client.channels.fetch(
 const slotMessage = await slotChannel.messages.fetch(
   process.env.SLOT_LIST_MESSAGE_ID
 );
-
+await slotMessage.edit({
+  content:
+    "🎟 **TOURNAMENT SLOT LIST**\n\nNo registrations yet."
+});
 await interaction.reply({
   content:
    "✅ Tournament data reset successfully.\n\n• All registrations removed\n• All matches removed\n• Tournament rounds reset\n• Slot counter reset",
