@@ -16,13 +16,24 @@ PermissionFlagsBits.Administrator
 async execute(interaction) {
 
 const currentRound =
-  (await db.get("current_round")) || 1;
+(await db.get("current_round")) || 1;
 
 const nextRound =
-  currentRound + 1;
+currentRound + 1;
+
+const existingMatches =
+await db.list(`match:${nextRound}:`);
+
+if (existingMatches.length > 0) {
+return interaction.reply({
+content:
+`❌ Round ${nextRound} has already been generated.`,
+ephemeral: true
+});
+}
 
 const matchKeys =
-  await db.list("match:");
+await db.list("match:");
 
 let winners = [];
 
