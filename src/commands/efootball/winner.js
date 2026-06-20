@@ -115,7 +115,6 @@ await interaction.reply({
     `✅ Winner saved for Round ${roundNumber} Match ${matchNumber}\n🎟 Winner: ${winnerSlot}`,
   ephemeral: true
 });
-```
 
 }
 };
