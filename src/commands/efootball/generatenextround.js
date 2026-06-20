@@ -40,6 +40,35 @@ for (const key of matchKeys) {
 
 }
 
+const fixtureChannel =
+  await interaction.client.channels.fetch(
+    process.env.FIXTURE_CHANNEL_ID
+  );
+
+if (winners.length === 1) {
+
+const champion = winners[0];
+
+await fixtureChannel.send(
+`━━━━━━━━━━
+🏆 TOURNAMENT CHAMPION
+━━━━━━━━━━
+
+🎟 ${champion.slot}
+🎮 ${champion.ingameName}
+📱 ${champion.phoneNumber}
+
+🥇 WINNER`
+);
+
+return interaction.reply({
+content:
+`🏆 Tournament completed!\nChampion: ${champion.ingameName}`,
+ephemeral: true
+});
+
+}
+
 let nextRoundFixtures = [];
 
 for (
@@ -56,11 +85,6 @@ for (
   });
 
 }
-
-const fixtureChannel =
-  await interaction.client.channels.fetch(
-    process.env.FIXTURE_CHANNEL_ID
-  );
 
 await fixtureChannel.send(
 
