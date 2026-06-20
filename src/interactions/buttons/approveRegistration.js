@@ -88,6 +88,11 @@ for (const key of registrations) {
     );
   }
 }
+slots.sort((a, b) => {
+  const slotA = parseInt(a.match(/\d+/)[0]);
+  const slotB = parseInt(b.match(/\d+/)[0]);
+  return slotA - slotB;
+});
 
 await slotMessage.edit({
   content:
