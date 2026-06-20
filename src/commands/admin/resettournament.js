@@ -28,6 +28,16 @@ export default {
       "efootball:slot_counter",
       0
     );
+const matchKeys =
+  await db.list("match:");
+
+for (const key of matchKeys) {
+  await db.delete(key);
+}
+
+await db.delete("current_round");
+await db.delete("tournament_finished");
+
 const slotChannel = await interaction.client.channels.fetch(
   process.env.SLOT_LIST_CHANNEL_ID
 );
@@ -42,7 +52,7 @@ await slotMessage.edit({
 });
     await interaction.reply({
       content:
-        "✅ Tournament data reset successfully.\n\n• All registrations removed\n• Slot counter reset",
+       "✅ Tournament data reset successfully.\n\n• All registrations removed\n• All matches removed\n• Tournament rounds reset\n• Slot counter reset"
       ephemeral: true
     });
 
