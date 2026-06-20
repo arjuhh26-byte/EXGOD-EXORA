@@ -21,6 +21,17 @@ const currentRound =
 const nextRound =
   currentRound + 1;
 
+  const tournamentFinished =
+  await db.get("tournament_finished");
+
+if (tournamentFinished) {
+  return interaction.reply({
+    content:
+      "❌ Tournament already finished.",
+    ephemeral: true
+  });
+}
+
 const matchKeys =
   await db.list("match:");
 
@@ -61,6 +72,11 @@ const fixtureChannel =
 if (winners.length === 1) {
 
   const champion = winners[0];
+
+  await db.set(
+  "tournament_finished",
+  true
+);
 
   await fixtureChannel.send(
 
