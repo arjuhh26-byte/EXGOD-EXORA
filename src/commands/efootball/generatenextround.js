@@ -53,11 +53,18 @@ await interaction.client.channels.fetch(
 process.env.FIXTURE_CHANNEL_ID
 );
 
+await fixtureChannel.send(
+`━━━━━━━━━━
+🏆 ROUND 2
+━━━━━━━━━━`
+);
+
 for (const fixture of nextRoundFixtures) {
 
 const player1 = fixture.player1;
 const player2 = fixture.player2;
 
+const matchMessage =
 await fixtureChannel.send({
 content:
 `🏆 ROUND 2 - MATCH ${fixture.match}
@@ -80,6 +87,18 @@ player2
 
 Status: Pending`
 });
+
+await db.set(
+  `match:2:${fixture.match}`,
+  {
+    round: 2,
+    match: fixture.match,
+    player1,
+    player2,
+    winner: null,
+    messageId: matchMessage.id
+  }
+);
 
 }
 
