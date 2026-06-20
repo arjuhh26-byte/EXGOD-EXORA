@@ -1,42 +1,52 @@
 import {
-  SlashCommandBuilder,
-  PermissionFlagsBits
+SlashCommandBuilder,
+PermissionFlagsBits
 } from "discord.js";
 
 import { db } from "../../utils/database.js";
 
 export default {
-  data: new SlashCommandBuilder()
-    .setName("winner")
-    .setDescription("Set match winner")
+data: new SlashCommandBuilder()
+.setName("winner")
+.setDescription("Set match winner")
 
-    .addIntegerOption(option =>
-      option
-        .setName("match")
-        .setDescription("Match number")
-        .setRequired(true)
-    )
+.addIntegerOption(option =>
+  option
+    .setName("round")
+    .setDescription("Round number")
+    .setRequired(true)
+)
 
-    .addStringOption(option =>
-      option
-        .setName("slot")
-        .setDescription("Winner slot number")
-        .setRequired(true)
-    )
+.addIntegerOption(option =>
+  option
+    .setName("match")
+    .setDescription("Match number")
+    .setRequired(true)
+)
 
-    .setDefaultMemberPermissions(
-      PermissionFlagsBits.Administrator
-    ),
+.addStringOption(option =>
+  option
+    .setName("slot")
+    .setDescription("Winner slot number")
+    .setRequired(true)
+)
 
-  async execute(interaction) {
+.setDefaultMemberPermissions(
+  PermissionFlagsBits.Administrator
+),
 
-    const matchNumber =
-      interaction.options.getInteger("match");
+async execute(interaction) {
 
-    const winnerSlot =
-      interaction.options.getString("slot");
+const roundNumber =
+  interaction.options.getInteger("round");
 
-      const registrations =
+const matchNumber =
+  interaction.options.getInteger("match");
+
+const winnerSlot =
+  interaction.options.getString("slot");
+
+const registrations =
   await db.list("registration:");
 
 let winnerData = null;
@@ -50,19 +60,23 @@ for (const key of registrations) {
   }
 }
 
-    const matchData = await db.get(
-      `match:${matchNumber}`
-    );
+const matchKey =
+  roundNumber === 1
+    ? `match:${matchNumber}`
+    : `match:${roundNumber}:${matchNumber}`;
 
-    if (!matchData) {
-      return interaction.reply({
-        content: "❌ Match not found.",
-        ephemeral: true
-      });
-    }
+const matchData =
+  await db.get(matchKey);
 
-  await db.set(
-  `match:${matchNumber}`,
+if (!matchData) {
+  return interaction.reply({
+    content: "❌ Match not found.",
+    ephemeral: true
+  });
+}
+
+await db.set(
+  matchKey,
   {
     ...matchData,
     winner: winnerData
@@ -81,25 +95,27 @@ const matchMessage =
 
 await matchMessage.edit({
   content:
+
 `🏆 MATCH ${matchNumber}
 
 Player 1
-🎟 ${matchData.player1}
+🎟 ${matchData.player1?.slot || matchData.player1}
 
 VS
 
 Player 2
-🎟 ${matchData.player2 || "BYE"}
+🎟 ${matchData.player2?.slot || matchData.player2 || "BYE"}
 
 ✅ WINNER
 🎟 ${winnerSlot}`
-}); 
+});
 
-    await interaction.reply({
-      content:
-        `✅ Winner saved for Match ${matchNumber}\n🎟 Winner: ${winnerSlot}`,
-      ephemeral: true
-    });
+await interaction.reply({
+  content:
+    `✅ Winner saved for Round ${roundNumber} Match ${matchNumber}\n🎟 Winner: ${winnerSlot}`,
+  ephemeral: true
+});
+```
 
-  }
+}
 };
