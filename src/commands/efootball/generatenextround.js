@@ -16,24 +16,26 @@ PermissionFlagsBits.Administrator
 async execute(interaction) {
 
 const currentRound =
-(await db.get("current_round")) || 1;
+  (await db.get("current_round")) || 1;
 
 const nextRound =
-currentRound + 1;
-
-const existingMatches =
-await db.list(`match:${nextRound}:`);
-
-if (existingMatches.length > 0) {
-return interaction.reply({
-content:
-`❌ Round ${nextRound} has already been generated.`,
-ephemeral: true
-});
-}
+  currentRound + 1;
 
 const matchKeys =
-await db.list("match:");
+  await db.list("match:");
+
+const roundAlreadyExists =
+  matchKeys.some(key =>
+    key.startsWith(`match:${nextRound}:`)
+  );
+
+if (roundAlreadyExists) {
+  return interaction.reply({
+    content:
+      `❌ Round ${nextRound} already exists.`,
+    ephemeral: true
+  });
+}
 
 let winners = [];
 
@@ -58,9 +60,10 @@ const fixtureChannel =
 
 if (winners.length === 1) {
 
-const champion = winners[0];
+  const champion = winners[0];
 
-await fixtureChannel.send(
+  await fixtureChannel.send(
+
 `━━━━━━━━━━
 🏆 TOURNAMENT CHAMPION
 ━━━━━━━━━━
@@ -72,11 +75,11 @@ await fixtureChannel.send(
 🥇 WINNER`
 );
 
-return interaction.reply({
-content:
-`🏆 Tournament completed!\nChampion: ${champion.ingameName}`,
-ephemeral: true
-});
+  return interaction.reply({
+    content:
+      `🏆 Tournament completed!\nChampion: ${champion.ingameName}`,
+    ephemeral: true
+  });
 
 }
 
