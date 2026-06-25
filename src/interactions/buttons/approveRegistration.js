@@ -4,6 +4,7 @@ export default {
   name: "approve_registration",
 
   async execute(interaction) {
+    try {
 
 if (!interaction.member.permissions.has("Administrator")) {
   return interaction.reply({
@@ -150,6 +151,8 @@ setTimeout(async () => {
     console.error(err);
   }
 }, 10000);
-
+} catch (err) {
+  console.error("APPROVE ERROR:", err);
+}
   }
 };
