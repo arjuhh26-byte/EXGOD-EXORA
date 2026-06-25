@@ -101,10 +101,12 @@ await slotMessage.edit({
       ? slots.join("\n")
       : "No registrations yet.")
 });
+console.log("SLOT LIST UPDATED");
 
 await member.roles.add(
   process.env.EFOOTBALL_PLAYER_ROLE_ID
 );
+console.log("ROLE ADDED");
    const user = await interaction.client.users.fetch(
   registration.discordId
 );
@@ -118,6 +120,7 @@ await user.send(
 
 🎟 Slot Number: ${formattedSlot}`
 );
+console.log("DM SENT");
 const logChannel =
   await interaction.client.channels.fetch(
     process.env.REGISTRATION_LOG_CHANNEL_ID
@@ -133,6 +136,7 @@ await logChannel.send(
 
 🛡 Approved By: ${interaction.user}`
 );
+console.log("LOG SENT");
 await interaction.reply({
   content: `✅ Registration Approved
 
