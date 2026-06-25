@@ -21,7 +21,6 @@ PermissionFlagsBits.Administrator
 
 async execute(interaction) {
 
-```
 const user =
   interaction.options.getUser("user");
 
@@ -58,7 +57,6 @@ await interaction.reply({
     `✅ Registration removed for ${user.tag}`,
   ephemeral: true
 });
-```
 
 }
 };
