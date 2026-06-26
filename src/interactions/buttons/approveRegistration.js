@@ -104,9 +104,14 @@ await slotMessage.edit({
 });
 console.log("SLOT LIST UPDATED");
 
-await member.roles.add(
-  process.env.EFOOTBALL_PLAYER_ROLE_ID
-);
+try {
+  await member.roles.add(
+    process.env.EFOOTBALL_PLAYER_ROLE_ID
+  );
+  console.log("ROLE ADDED SUCCESS");
+} catch (err) {
+  console.error("ROLE ERROR:", err);
+}
 console.log("ROLE ADDED");
    const user = await interaction.client.users.fetch(
   registration.discordId
@@ -116,16 +121,18 @@ console.log(
   process.env.EFOOTBALL_PLAYER_ROLE_ID
 );
 
-await user.send(
-  `✅ Registration Approved
+try {
+  await user.send(
+    `✅ Registration Approved
 
 🎟 Slot Number: ${formattedSlot}`
-);
-console.log("DM SENT");
-const logChannel =
-  await interaction.client.channels.fetch(
-    process.env.REGISTRATION_LOG_CHANNEL_ID
   );
+  console.log("DM SENT");
+} catch (err) {
+  console.error("DM ERROR:", err);
+}
+
+console.log("TRYING LOG CHANNEL");
 
 await logChannel.send(
   `✅ **REGISTRATION APPROVED**
