@@ -95,6 +95,7 @@ slots.sort((a, b) => {
   return slotA - slotB;
 });
 
+/*
 await slotMessage.edit({
   content:
     `🎟 **TOURNAMENT SLOT LIST**\n\n` +
@@ -102,7 +103,8 @@ await slotMessage.edit({
       ? slots.join("\n")
       : "No registrations yet.")
 });
-console.log("SLOT LIST UPDATED");
+*/
+// console.log("SLOT LIST UPDATED");
 
 try {
   console.log("BEFORE ROLE");
@@ -138,24 +140,23 @@ try {
   console.error("DM ERROR:", err);
 }
 
-const logChannel =
-  await interaction.client.channels.fetch(
-    process.env.REGISTRATION_LOG_CHANNEL_ID
-  );
-  
+const logChannel = await interaction.client.channels.fetch(
+  process.env.REGISTRATION_LOG_CHANNEL_ID
+);
+
 console.log("TRYING LOG CHANNEL");
 console.log("BEFORE LOG");
-await logChannel.send(
-  `✅ **REGISTRATION APPROVED**
+
+await logChannel.send(`✅ **REGISTRATION APPROVED**
 
 👤 User: <@${registration.discordId}>
 🎮 Ingame Name: ${registration.ingameName}
 📱 Phone: ${registration.phoneNumber}
 🎟 Slot: ${formattedSlot}
 
-🛡 Approved By: ${interaction.user}`
-);
-  console.log("AFTER LOG");
+🛡 Approved By: ${interaction.user}`);
+
+console.log("AFTER LOG");
 
 console.log("LOG SENT");
 console.log("REACHED INTERACTION REPLY");
