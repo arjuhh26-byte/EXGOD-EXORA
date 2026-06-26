@@ -1,3 +1,4 @@
+import { updateSlotList } from "../../utils/updateSlotList.js";
 import {
 SlashCommandBuilder,
 PermissionFlagsBits
@@ -53,6 +54,21 @@ console.log("FOUND KEY:", foundKey);
 console.log("FOUND DATA:", foundData);
 
 await db.delete(foundKey);
+
+const logChannel =
+  await interaction.client.channels.fetch(
+    process.env.REGISTRATION_LOG_CHANNEL_ID
+  );
+
+await logChannel.send(
+`🗑️ **REGISTRATION REMOVED**
+
+👤 User: <@${user.id}>
+
+🛡 Removed By: ${interaction.user}`
+);
+
+await updateSlotList(interaction.client);
 
 await interaction.reply({
   content:
