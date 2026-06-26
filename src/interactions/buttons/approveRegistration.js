@@ -1,3 +1,4 @@
+import { updateSlotList } from "../../utils/updateSlotList.js";
 import { db } from "../../utils/database.js";
 
 export default {
@@ -68,43 +69,7 @@ await db.set(
 const member = await interaction.guild.members.fetch(
   registration.discordId
 );
-const slotChannel = await interaction.client.channels.fetch(
-  process.env.SLOT_LIST_CHANNEL_ID
-);
-
-const slotMessage = await slotChannel.messages.fetch(
-  process.env.SLOT_LIST_MESSAGE_ID
-);
-
-const registrations = await db.list("registration:");
-
-let slots = [];
-
-for (const key of registrations) {
-  const data = await db.get(key);
-
-  if (data?.status === "approved") {
-    slots.push(
-      `${data.slot} - ${data.ingameName}`
-    );
-  }
-}
-slots.sort((a, b) => {
-  const slotA = parseInt(a.match(/\d+/)[0]);
-  const slotB = parseInt(b.match(/\d+/)[0]);
-  return slotA - slotB;
-});
-
-/*
-await slotMessage.edit({
-  content:
-    `🎟 **TOURNAMENT SLOT LIST**\n\n` +
-    (slots.length
-      ? slots.join("\n")
-      : "No registrations yet.")
-});
-*/
-// console.log("SLOT LIST UPDATED");
+await updateSlotList(interaction.client);
 
 try {
   console.log("BEFORE ROLE");
