@@ -43,7 +43,7 @@ export default {
       interaction.options.getString("message");
 
     const sentMessage = await channel.send({
-      content: `📢 **${title}**\n\n${message}`
+      content: `**${title}**\n\n${message}`
     });
 
     await interaction.reply({
