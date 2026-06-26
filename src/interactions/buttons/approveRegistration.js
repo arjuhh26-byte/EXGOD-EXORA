@@ -105,9 +105,12 @@ await slotMessage.edit({
 console.log("SLOT LIST UPDATED");
 
 try {
+  console.log("BEFORE ROLE");
   await member.roles.add(
     process.env.EFOOTBALL_PLAYER_ROLE_ID
   );
+  console.log("AFTER ROLE");
+
   console.log("ROLE ADDED SUCCESS");
 } catch (err) {
   console.error("ROLE ERROR:", err);
@@ -122,18 +125,26 @@ console.log(
 );
 
 try {
+  console.log("BEFORE DM");
   await user.send(
     `✅ Registration Approved
 
 🎟 Slot Number: ${formattedSlot}`
   );
+   console.log("AFTER DM");
+
   console.log("DM SENT");
 } catch (err) {
   console.error("DM ERROR:", err);
 }
 
+const logChannel =
+  await interaction.client.channels.fetch(
+    process.env.REGISTRATION_LOG_CHANNEL_ID
+  );
+  
 console.log("TRYING LOG CHANNEL");
-
+console.log("BEFORE LOG");
 await logChannel.send(
   `✅ **REGISTRATION APPROVED**
 
@@ -144,7 +155,10 @@ await logChannel.send(
 
 🛡 Approved By: ${interaction.user}`
 );
+  console.log("AFTER LOG");
+
 console.log("LOG SENT");
+console.log("REACHED INTERACTION REPLY");
 await interaction.reply({
   content: `✅ Registration Approved
 
