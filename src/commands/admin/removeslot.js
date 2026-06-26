@@ -49,6 +49,8 @@ if (!foundKey) {
     ephemeral: true
   });
 }
+console.log("FOUND KEY:", foundKey);
+console.log("FOUND DATA:", foundData);
 
 await db.delete(foundKey);
 
